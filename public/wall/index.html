@@ -2,7 +2,6 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>員工回音牆</title>
 </head>
 <body>
@@ -22,7 +21,7 @@ required>
 name="message"
 placeholder="請輸入意見"
 required
-style="width:100%;height:180px"></textarea>
+style="width:100%;height:200px"></textarea>
 
 <br><br>
 
@@ -49,7 +48,7 @@ headers:{
 body:JSON.stringify({
 name:fd.get("name"),
 message:fd.get("message"),
-email:"yicheng@weiflycc.com"
+notify:"yicheng@weiflycc.com"
 })
 });
 
