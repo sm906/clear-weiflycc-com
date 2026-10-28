@@ -3,35 +3,58 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>毅澄環保營運平台</title>
+<title>毅澄環保員工服務平台</title>
 <style>
-body{font-family:sans-serif;max-width:1200px;margin:auto;padding:40px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
-.card{border:1px solid #ddd;padding:24px;border-radius:16px;text-decoration:none;color:#111}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"Microsoft JhengHei",sans-serif;background:#0f172a;color:#fff;padding:18px}
+.logo{width:140px;display:block;margin:20px auto}
+.watermark{position:fixed;right:-10px;bottom:10px;font-size:100px;font-weight:900;color:#dc2626;opacity:.04;transform:rotate(-20deg);pointer-events:none}
+h1{text-align:center;font-size:28px}
+.sub{text-align:center;color:#cbd5e1;margin-top:8px;margin-bottom:25px}
+.card{display:block;background:#fff;color:#111827;text-decoration:none;border-radius:18px;padding:22px;margin-bottom:14px}
+.card h3{margin-top:6px}
+.card p{color:#64748b;margin-top:5px}
+.footer{text-align:center;color:#cbd5e1;font-size:13px;margin-top:25px}
 </style>
 </head>
 <body>
 
-<h1>毅澄環保營運平台</h1>
+<div class="watermark">毅澄環保</div>
 
-<div class="grid">
+<img src="/image/logo.jpg" class="logo">
+
+<h1>毅澄環保員工服務平台</h1>
+
+<div class="sub">
+員工回音牆・請假申請・排休管理・文件上傳
+</div>
 
 <a class="card" href="/wall/">
+<div>📝</div>
 <h3>員工回音牆</h3>
+<p>意見與建議反映</p>
 </a>
 
 <a class="card" href="/leave/">
+<div>🏖️</div>
 <h3>線上請假</h3>
+<p>事假、病假、特休</p>
 </a>
 
 <a class="card" href="/schedule/">
+<div>📅</div>
 <h3>排休申請</h3>
+<p>每月25日前排定三天</p>
 </a>
 
 <a class="card" href="/upload/">
+<div>📄</div>
 <h3>證明文件上傳</h3>
+<p>診斷證明與附件</p>
 </a>
 
+<div class="footer">
+yicheng@weiflycc.com
 </div>
 
 </body>

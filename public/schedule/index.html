@@ -2,42 +2,83 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>排休申請</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"Microsoft JhengHei";background:#0f172a;color:#fff;padding:18px}
+.watermark{position:fixed;right:-10px;bottom:10px;font-size:100px;font-weight:900;color:#dc2626;opacity:.04;transform:rotate(-20deg)}
+.nav{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:18px}
+.nav a{text-decoration:none;background:#1e293b;padding:10px;border-radius:10px;color:#fff;text-align:center;font-size:12px}
+.card{background:#fff;color:#111;padding:18px;border-radius:18px}
+input{width:100%;padding:14px;border-radius:12px;border:1px solid #ddd;margin-top:12px}
+button{width:100%;padding:15px;background:#f59e0b;border:none;border-radius:12px;font-weight:bold;margin-top:14px}
+.tip{margin-bottom:15px;color:#64748b}
+</style>
 </head>
 <body>
 
-<h1>排休申請</h1>
+<div class="watermark">毅澄環保</div>
 
-<p>
+<div class="nav">
+<a href="/">首頁</a>
+<a href="/wall/">回音牆</a>
+<a href="/leave/">請假</a>
+<a href="/schedule/">排休</a>
+<a href="/upload/">上傳</a>
+</div>
+
+<div class="card">
+
+<h2>排休申請</h2>
+
+<div class="tip">
 每月25日前自排三天交由組長審核
-</p>
+</div>
 
-<form>
+<form id="scheduleForm">
 
-<input placeholder="姓名">
+<input name="name" placeholder="姓名" required>
 
-<br><br>
+<input type="date" name="day1" required>
 
-<label>第一天</label>
-<input type="date">
+<input type="date" name="day2" required>
 
-<br><br>
+<input type="date" name="day3" required>
 
-<label>第二天</label>
-<input type="date">
-
-<br><br>
-
-<label>第三天</label>
-<input type="date">
-
-<br><br>
-
-<button>
+<button type="submit">
 送出排休
 </button>
 
 </form>
+
+</div>
+
+<script>
+document.getElementById("scheduleForm")
+.addEventListener("submit",async(e)=>{
+e.preventDefault();
+
+const fd=new FormData(e.target);
+
+const res=await fetch("/api/schedule/clear",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({
+name:fd.get("name"),
+day1:fd.get("day1"),
+day2:fd.get("day2"),
+day3:fd.get("day3")
+})
+});
+
+const data=await res.json();
+
+alert(data.success?"送出成功":"送出失敗");
+
+if(data.success)e.target.reset();
+});
+</script>
 
 </body>
 </html>
