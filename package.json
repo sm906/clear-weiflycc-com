@@ -1,5 +1,7 @@
 {
   "dependencies": {
-    "hono": "^4.13.14"
+    "exceljs": "^4.4.0",
+    "hono": "^4.13.14",
+    "jspdf": "^4.2.1"
   }
 }
