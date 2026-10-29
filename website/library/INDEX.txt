@@ -1,6 +1,7 @@
 website/library/INDEX.txt
 website/library/SITE-MAP.md
 website/library/assets/css/style.css
+website/library/assets/js/layout.js
 website/library/checklist/customer-discovery/index.html
 website/library/checklist/index.md
 website/library/checklist/maintenance/index.html
