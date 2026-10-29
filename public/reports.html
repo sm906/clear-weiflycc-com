@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>報表中心</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Microsoft JhengHei"}
+body{background:#0f172a;padding:20px;color:#fff}
+.grid{
+display:grid;
+grid-template-columns:
+repeat(auto-fit,minmax(220px,1fr));
+gap:16px;
+}
+.card{
+background:#fff;
+color:#111827;
+padding:20px;
+border-radius:18px;
+}
+.num{
+margin-top:10px;
+font-size:32px;
+font-weight:700;
+}
+</style>
+</head>
+
+<body>
+
+<h1>報表中心</h1>
+
+<div class="grid">
+
+<div class="card">
+員工總數
+<div class="num" id="employees">0</div>
+</div>
+
+<div class="card">
+休假紀錄
+<div class="num" id="leaves">0</div>
+</div>
+
+<div class="card">
+排班筆數
+<div class="num" id="schedules">0</div>
+</div>
+
+<div class="card">
+警示數量
+<div class="num" id="warnings">0</div>
+</div>
+
+</div>
+
+<script>
+
+const API =
+"https://clear-weiflycc-com.smstar.workers.dev/api";
+
+async function load(){
+
+const res =
+await fetch(
+API + "/reports/summary"
+);
+
+const data =
+await res.json();
+
+employees.textContent =
+data.employees;
+
+leaves.textContent =
+data.leaves;
+
+schedules.textContent =
+data.schedules;
+
+warnings.textContent =
+data.warnings;
+
+}
+
+load();
+
+</script>
+
+</body>
+</html>

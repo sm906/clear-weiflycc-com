@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>區域管理</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:"Microsoft JhengHei";
+}
+
+body{
+background:#0f172a;
+padding:20px;
+color:#fff;
+}
+
+h1{
+margin-bottom:20px;
+}
+
+.card{
+background:#fff;
+padding:18px;
+border-radius:18px;
+margin-bottom:16px;
+color:#111827;
+}
+
+input{
+width:100%;
+padding:12px;
+margin-top:10px;
+border-radius:10px;
+border:1px solid #ddd;
+}
+
+button{
+width:100%;
+padding:12px;
+margin-top:10px;
+background:#2563eb;
+color:#fff;
+border:0;
+border-radius:10px;
+}
+
+.row{
+padding:12px;
+border-bottom:1px solid #eee;
+}
+
+.code{
+font-weight:bold;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>區域管理</h1>
+
+<div class="card">
+
+<input
+id="area_code"
+placeholder="區域代碼">
+
+<input
+id="area_name"
+placeholder="區域名稱">
+
+<button
+onclick="saveArea()">
+新增區域
+</button>
+
+</div>
+
+<div
+class="card"
+id="areas">
+讀取中...
+</div>
+
+<script>
+
+const API =
+"https://clear-weiflycc-com.smstar.workers.dev/api";
+
+async function loadAreas(){
+
+const res =
+await fetch(
+API + "/areas"
+);
+
+const rows =
+await res.json();
+
+let html = "";
+
+rows.forEach(x=>{
+
+html += `
+<div class="row">
+
+<div class="code">
+${x.area_code}
+</div>
+
+<div>
+${x.area_name}
+</div>
+
+<div>
+主責：
+${x.primary_name || '-'}
+</div>
+
+<div>
+受訓：
+${x.trainee_name || '-'}
+</div>
+
+</div>
+`;
+
+});
+
+document.getElementById(
+"areas"
+).innerHTML =
+html || "尚無資料";
+
+}
+
+async function saveArea(){
+
+await fetch(
+API + "/areas",
+{
+method:"POST",
+headers:{
+"Content-Type":
+"application/json"
+},
+body:JSON.stringify({
+area_code:
+document.getElementById(
+"area_code"
+).value,
+
+area_name:
+document.getElementById(
+"area_name"
+).value
+})
+}
+);
+
+loadAreas();
+
+}
+
+loadAreas();
+
+</script>
+
+</body>
+</html>

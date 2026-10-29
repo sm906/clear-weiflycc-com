@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>毅澄環保管理中心</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:"Microsoft JhengHei",sans-serif;
+}
+
+body{
+background:#0f172a;
+color:#fff;
+padding:20px;
+}
+
+h1{
+margin-bottom:20px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:
+repeat(auto-fit,minmax(220px,1fr));
+gap:16px;
+}
+
+.card{
+background:#fff;
+color:#111827;
+padding:20px;
+border-radius:18px;
+}
+
+.label{
+font-size:14px;
+color:#64748b;
+margin-bottom:10px;
+}
+
+.value{
+font-size:32px;
+font-weight:700;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>毅澄環保 Dashboard</h1>
+
+<div class="grid">
+
+<div class="card">
+<div class="label">
+總在職人數
+</div>
+<div class="value"
+id="activeEmployees">
+0
+</div>
+</div>
+
+<div class="card">
+<div class="label">
+固定區域人數
+</div>
+<div class="value"
+id="fixedEmployees">
+0
+</div>
+</div>
+
+<div class="card">
+<div class="label">
+替班人數
+</div>
+<div class="value"
+id="substituteEmployees">
+0
+</div>
+</div>
+
+<div class="card">
+<div class="label">
+機動人數
+</div>
+<div class="value"
+id="mobileEmployees">
+0
+</div>
+</div>
+
+<div class="card">
+<div class="label">
+待審核休假
+</div>
+<div class="value"
+id="pendingLeaves">
+0
+</div>
+</div>
+
+<div class="card">
+<div class="label">
+排班警示
+</div>
+<div class="value"
+id="warnings">
+0
+</div>
+</div>
+
+</div>
+
+<script>
+
+const API =
+"/api/dashboard/stats";
+
+async function loadDashboard(){
+
+const res =
+await fetch(API);
+
+const data =
+await res.json();
+
+document.getElementById(
+"activeEmployees"
+).textContent =
+data.activeEmployees;
+
+document.getElementById(
+"fixedEmployees"
+).textContent =
+data.fixedEmployees;
+
+document.getElementById(
+"substituteEmployees"
+).textContent =
+data.substituteEmployees;
+
+document.getElementById(
+"mobileEmployees"
+).textContent =
+data.mobileEmployees;
+
+document.getElementById(
+"pendingLeaves"
+).textContent =
+data.pendingLeaves;
+
+document.getElementById(
+"warnings"
+).textContent =
+data.warnings;
+
+}
+
+loadDashboard();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>員工管理</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Microsoft JhengHei"}
+body{background:#0f172a;padding:20px;color:#fff}
+h1{margin-bottom:20px}
+.card{background:#fff;border-radius:16px;padding:16px;color:#111;margin-bottom:16px}
+input,select{
+width:100%;
+padding:12px;
+margin-top:10px;
+border:1px solid #ddd;
+border-radius:10px;
+}
+button{
+width:100%;
+padding:12px;
+margin-top:12px;
+border:0;
+border-radius:10px;
+background:#2563eb;
+color:#fff;
+}
+.table{
+background:#fff;
+border-radius:16px;
+padding:16px;
+color:#111;
+}
+.row{
+padding:12px;
+border-bottom:1px solid #eee;
+}
+.code{
+font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<h1>員工管理</h1>
+
+<div class="card">
+
+<input id="employee_code"
+placeholder="員工編號">
+
+<input id="name"
+placeholder="姓名">
+
+<select id="employee_type">
+<option value="fixed">固定區域</option>
+<option value="substitute">替班</option>
+<option value="mobile">機動</option>
+<option value="trainee">新進</option>
+</select>
+
+<button onclick="saveEmployee()">
+新增員工
+</button>
+
+</div>
+
+<div class="table"
+id="employees">
+讀取中...
+</div>
+
+<script>
+
+const API =
+"https://clear-weiflycc-com.smstar.workers.dev/api";
+
+async function loadEmployees(){
+
+const res =
+await fetch(
+API + "/employees"
+);
+
+const rows =
+await res.json();
+
+let html="";
+
+rows.forEach(x=>{
+
+html += `
+<div class="row">
+
+<div class="code">
+${x.employee_code}
+</div>
+
+<div>
+${x.name}
+</div>
+
+<div>
+${x.employee_type}
+</div>
+
+<div>
+${x.status}
+</div>
+
+</div>
+`;
+
+});
+
+document
+.getElementById(
+"employees"
+)
+.innerHTML = html;
+
+}
+
+async function saveEmployee(){
+
+const payload = {
+
+employee_code:
+document.getElementById(
+"employee_code"
+).value,
+
+name:
+document.getElementById(
+"name"
+).value,
+
+employee_type:
+document.getElementById(
+"employee_type"
+).value,
+
+status:"active",
+
+mentor_id:null,
+
+hire_date:
+new Date()
+.toISOString()
+.slice(0,10)
+
+};
+
+await fetch(
+API + "/employees",
+{
+method:"POST",
+headers:{
+"Content-Type":
+"application/json"
+},
+body:
+JSON.stringify(payload)
+}
+);
+
+loadEmployees();
+
+}
+
+loadEmployees();
+
+</script>
+
+</body>
+</html>

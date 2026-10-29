@@ -1,5 +1,17 @@
 {
+  "$schema": "node_modules/wrangler/config-schema.json",
+
   "name": "clear-weiflycc-com",
+
+  "main": "worker/index.ts",
+
   "compatibility_date": "2026-10-28",
-  "pages_build_output_dir": "public"
+
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "weiflycc-core",
+      "database_id": "9a393d0a-deec-4eee-a616-846dba420c65"
+    }
+  ]
 }

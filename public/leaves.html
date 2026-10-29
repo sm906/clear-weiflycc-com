@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>休假管理</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:"Microsoft JhengHei";
+}
+
+body{
+background:#0f172a;
+padding:20px;
+color:#fff;
+}
+
+h1{
+margin-bottom:20px;
+}
+
+.card{
+background:#fff;
+padding:18px;
+border-radius:18px;
+margin-bottom:16px;
+color:#111827;
+}
+
+input{
+width:100%;
+padding:12px;
+margin-top:10px;
+border:1px solid #ddd;
+border-radius:10px;
+}
+
+button{
+width:100%;
+padding:12px;
+margin-top:10px;
+border:0;
+border-radius:10px;
+background:#2563eb;
+color:white;
+}
+
+.row{
+padding:12px;
+border-bottom:1px solid #eee;
+}
+
+.name{
+font-weight:bold;
+}
+
+.status{
+margin-top:5px;
+font-size:12px;
+}
+
+.ok{
+color:#16a34a;
+}
+
+.wait{
+color:#f59e0b;
+}
+</style>
+</head>
+
+<body>
+
+<h1>休假管理</h1>
+
+<div class="card">
+
+<input
+id="employee_id"
+placeholder="員工ID">
+
+<input
+type="date"
+id="leave_date">
+
+<input
+id="remark"
+placeholder="備註">
+
+<button onclick="saveLeave()">
+新增休假
+</button>
+
+</div>
+
+<div
+class="card"
+id="leaveList">
+載入中...
+</div>
+
+<script>
+
+const API =
+"https://clear-weiflycc-com.smstar.workers.dev/api";
+
+async function loadLeaves(){
+
+const res =
+await fetch(
+API + "/leaves"
+);
+
+const rows =
+await res.json();
+
+let html = "";
+
+rows.forEach(x=>{
+
+html += `
+<div class="row">
+
+<div class="name">
+${x.name || '-'}
+</div>
+
+<div>
+${x.leave_date}
+</div>
+
+<div>
+${x.remark || ''}
+</div>
+
+<div class="status ${
+x.approved == 1
+? "ok"
+: "wait"
+}">
+${
+x.approved == 1
+? "已核准"
+: "待審核"
+}
+</div>
+
+</div>
+`;
+
+});
+
+document
+.getElementById(
+"leaveList"
+)
+.innerHTML =
+html || "尚無資料";
+
+}
+
+async function saveLeave(){
+
+await fetch(
+API + "/leaves",
+{
+method:"POST",
+headers:{
+"Content-Type":
+"application/json"
+},
+body:JSON.stringify({
+
+employee_id:
+document.getElementById(
+"employee_id"
+).value,
+
+leave_date:
+document.getElementById(
+"leave_date"
+).value,
+
+remark:
+document.getElementById(
+"remark"
+).value
+
+})
+}
+);
+
+loadLeaves();
+
+}
+
+loadLeaves();
+
+</script>
+
+</body>
+</html>

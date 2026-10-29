@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>排班月曆</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Microsoft JhengHei"}
+body{
+background:#0f172a;
+color:#fff;
+padding:20px;
+}
+.grid{
+display:grid;
+grid-template-columns:repeat(7,1fr);
+gap:6px;
+}
+.day{
+background:#fff;
+color:#111827;
+border-radius:12px;
+padding:10px;
+min-height:120px;
+}
+.date{
+font-weight:bold;
+margin-bottom:8px;
+}
+.item{
+font-size:12px;
+margin-top:4px;
+background:#e2e8f0;
+padding:4px;
+border-radius:6px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>排班月曆</h1>
+
+<div class="grid" id="calendar"></div>
+
+<script>
+
+const API =
+"https://clear-weiflycc-com.smstar.workers.dev/api";
+
+const year = 2026;
+const month = 11;
+
+async function load(){
+
+const res =
+await fetch(
+API+"/schedules"
+);
+
+const rows =
+await res.json();
+
+const total =
+new Date(
+year,
+month,
+0
+).getDate();
+
+let html = "";
+
+for(let d=1; d<=total; d++){
+
+const date =
+`${year}-${String(month).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+
+const dayRows =
+rows.filter(
+x=>x.work_date===date
+);
+
+html += `
+<div class="day">
+
+<div class="date">
+${d}
+</div>
+
+${dayRows.map(x=>`
+<div class="item">
+${x.area_name || ''}
+<br>
+${x.name || ''}
+</div>
+`).join("")}
+
+</div>
+`;
+
+}
+
+document
+.getElementById(
+"calendar"
+)
+.innerHTML =
+html;
+
+}
+
+load();
+
+</script>
+
+</body>
+</html>
