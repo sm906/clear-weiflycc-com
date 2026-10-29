@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>操作紀錄</title>
+
+<link rel="stylesheet" href="/sidebar.css">
+
+<style>
+body{
+background:#0f172a;
+color:white;
+font-family:"Microsoft JhengHei";
+}
+.card{
+background:white;
+color:#111827;
+padding:16px;
+border-radius:16px;
+margin-bottom:10px;
+}
+</style>
+
+</head>
+
+<body>
+
+<script src="/auth.js"></script>
+
+<div class="main">
+
+<h1>操作紀錄</h1>
+
+<div id="logs">
+載入中...
+</div>
+
+</div>
+
+<script>
+
+const API =
+"https://clear-weiflycc-com.smstar.workers.dev/api";
+
+async function load(){
+
+const res =
+await fetch(
+API + "/audit"
+);
+
+const rows =
+await res.json();
+
+let html="";
+
+rows.forEach(x=>{
+
+html += `
+<div class="card">
+
+${x.module}
+
+<br>
+
+${x.action}
+
+<br>
+
+${x.detail || ""}
+
+<br>
+
+${x.created_at}
+
+</div>
+`;
+
+});
+
+logs.innerHTML =
+html;
+
+}
+
+load();
+
+</script>
+
+</body>
+</html>

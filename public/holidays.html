@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>國定假日管理</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Microsoft JhengHei";}
+body{background:#0f172a;padding:20px;color:#fff;}
+.card{
+background:#fff;
+color:#111827;
+padding:18px;
+border-radius:18px;
+margin-bottom:16px;
+}
+input{
+width:100%;
+padding:12px;
+margin-top:10px;
+border:1px solid #ddd;
+border-radius:10px;
+}
+button{
+width:100%;
+padding:12px;
+margin-top:12px;
+border:0;
+border-radius:10px;
+background:#2563eb;
+color:#fff;
+}
+.row{
+padding:10px;
+border-bottom:1px solid #eee;
+}
+</style>
+
+</head>
+<body>
+
+<h1>國定假日管理</h1>
+
+<div class="card">
+
+<input
+type="date"
+id="holiday_date">
+
+<input
+id="holiday_name"
+placeholder="假日名稱">
+
+<button onclick="saveHoliday()">
+新增假日
+</button>
+
+</div>
+
+<div
+class="card"
+id="holidayList">
+載入中...
+</div>
+
+<script>
+
+const API =
+"https://clear-weiflycc-com.smstar.workers.dev/api";
+
+async function loadHolidays(){
+
+const res =
+await fetch(API+"/holidays");
+
+const rows =
+await res.json();
+
+let html = "";
+
+rows.forEach(x=>{
+
+html += `
+<div class="row">
+${x.holiday_date}
+<br>
+${x.holiday_name}
+</div>
+`;
+
+});
+
+holidayList.innerHTML =
+html || "無資料";
+
+}
+
+async function saveHoliday(){
+
+await fetch(
+API+"/holidays",
+{
+method:"POST",
+headers:{
+"Content-Type":
+"application/json"
+},
+body:JSON.stringify({
+holiday_date:
+holiday_date.value,
+holiday_name:
+holiday_name.value
+})
+}
+);
+
+loadHolidays();
+
+}
+
+loadHolidays();
+
+</script>
+
+</body>
+</html>
