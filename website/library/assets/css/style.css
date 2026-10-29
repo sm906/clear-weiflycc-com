@@ -25,6 +25,51 @@ margin:auto;
 padding:40px;
 }
 
+.topbar{
+position:sticky;
+top:0;
+z-index:999;
+background:#111827;
+border-bottom:1px solid #334155;
+}
+
+.topbar-inner{
+max-width:1400px;
+margin:auto;
+padding:14px 24px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:20px;
+}
+
+.logo{
+font-size:22px;
+font-weight:700;
+color:#fff;
+text-decoration:none;
+}
+
+.menu{
+display:flex;
+gap:16px;
+flex-wrap:wrap;
+}
+
+.menu a{
+color:#e5e7eb;
+text-decoration:none;
+}
+
+.menu-toggle{
+display:none;
+background:none;
+border:none;
+color:white;
+font-size:28px;
+cursor:pointer;
+}
+
 .header{
 margin-bottom:30px;
 }
@@ -45,68 +90,23 @@ gap:20px;
 }
 
 .card{
-background:var(--card);
-color:var(--text);
+display:block;
+background:#fff;
+color:#111827;
 text-decoration:none;
-padding:22px;
+padding:24px;
 border-radius:18px;
 border:1px solid var(--border);
-transition:.2s;
-}
-
-.card:hover{
-transform:translateY(-5px);
-border-color:var(--primary);
+margin-bottom:20px;
 }
 
 .card h2{
-margin-bottom:10px;
+margin-bottom:12px;
 }
 
 .card p{
-line-height:1.7;
-color:var(--muted);
-}
-
-.footer{
-margin-top:40px;
-text-align:center;
-color:#94a3b8;
-}
-
-.topbar{
-position:sticky;
-top:0;
-z-index:999;
-background:#111827;
-border-bottom:1px solid #334155;
-}
-
-.topbar-inner{
-max-width:1400px;
-margin:auto;
-padding:14px 40px;
-display:flex;
-align-items:center;
-justify-content:space-between;
-}
-
-.logo{
-color:white;
-font-size:22px;
-font-weight:700;
-text-decoration:none;
-}
-
-.menu{
-display:flex;
-gap:16px;
-flex-wrap:wrap;
-}
-
-.menu a{
-color:#e5e7eb;
-text-decoration:none;
+line-height:1.8;
+color:#64748b;
 }
 
 .footer{
@@ -132,4 +132,35 @@ color:#94a3b8;
 .copyright{
 margin-top:24px;
 text-align:center;
+}
+
+@media (max-width:768px){
+
+.container{
+padding:20px;
+}
+
+.menu-toggle{
+display:block;
+}
+
+.menu{
+display:none;
+position:absolute;
+top:60px;
+left:0;
+right:0;
+background:#111827;
+padding:20px;
+flex-direction:column;
+}
+
+.menu.show{
+display:flex;
+}
+
+.header h1{
+font-size:28px;
+}
+
 }
