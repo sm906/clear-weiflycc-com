@@ -1,24 +1,32 @@
 document.addEventListener("DOMContentLoaded",()=>{
 
-const path = window.location.pathname;
+const path=window.location.pathname;
 
 const root =
-path.includes("/library/projects/yicheng/") ||
+path.includes("/library/projects/yicheng/")
+||
 path.includes("/library/projects/xw/")
 ? "../../../"
 :
-path !== "/library/" &&
+path !== "/library/"
+&&
 path !== "/library/index.html"
 ? "../"
-:
-"./";
+: "./";
 
-const nav = `
+const html = `
+
+<a href="#main-content"
+class="skip-link">
+跳到主要內容
+</a>
+
 <header class="topbar">
 
 <div class="topbar-inner">
 
-<a class="logo" href="${root}">
+<a class="logo"
+href="${root}">
 威飛文建CC
 </a>
 
@@ -26,13 +34,16 @@ const nav = `
 class="menu-toggle"
 id="menuToggle"
 aria-label="開啟選單"
-aria-expanded="false">
+aria-expanded="false"
+aria-controls="mainMenu">
+
 ☰
+
 </button>
 
 <nav
-class="menu"
-id="mainMenu">
+id="mainMenu"
+class="menu">
 
 <a href="${root}">
 首頁
@@ -75,17 +86,62 @@ Checklist
 
 document.body.insertAdjacentHTML(
 "afterbegin",
-nav
+html
+);
+
+const footer = `
+
+<footer class="footer">
+
+<div class="footer-grid">
+
+<div>
+<h3>INFO</h3>
+<p>weiflycc.info</p>
+</div>
+
+<div>
+<h3>LIBRARY</h3>
+<p>weiflycc.info/library</p>
+</div>
+
+<div>
+<h3>SHOWCASE</h3>
+<p>weiflycc.com</p>
+</div>
+
+<div>
+<h3>IDENTITY</h3>
+<p>weiflycc.org</p>
+</div>
+
+<div>
+<h3>CONTROL</h3>
+<p>weiflycc.net</p>
+</div>
+
+</div>
+
+<p class="copyright">
+© WeiflyCC Studio
+</p>
+
+</footer>
+`;
+
+document.body.insertAdjacentHTML(
+"beforeend",
+footer
 );
 
 const btn =
-document.querySelector(
-"#menuToggle"
+document.getElementById(
+"menuToggle"
 );
 
 const menu =
-document.querySelector(
-"#mainMenu"
+document.getElementById(
+"mainMenu"
 );
 
 if(btn){
@@ -98,14 +154,9 @@ menu.classList.toggle(
 "show"
 );
 
-const expanded =
-menu.classList.contains(
-"show"
-);
-
 btn.setAttribute(
 "aria-expanded",
-expanded
+menu.classList.contains("show")
 );
 
 }
